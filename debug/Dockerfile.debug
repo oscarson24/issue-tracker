@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0
+WORKDIR /src
+RUN apt-get update \
+    && apt-get install -y curl unzip procps \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l /vsdbg
+COPY IssueTracker.Api/IssueTracker.Api.csproj IssueTracker.Api/
+RUN dotnet restore IssueTracker.Api/IssueTracker.Api.csproj
+WORKDIR /src/IssueTracker.Api
+EXPOSE 5000
+CMD ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000"]

@@ -1,0 +1,14 @@
+@IssueTracker.Api_HostAddress = http://localhost:5000
+
+GET {{IssueTracker.Api_HostAddress}}/api/issues
+Accept: application/json
+
+###
+
+POST {{IssueTracker.Api_HostAddress}}/api/issues
+Content-Type: application/json
+
+{
+  "title": "Test issue",
+  "description": "Created from HTTP file"
+}
